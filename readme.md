@@ -15,8 +15,8 @@ This patch disables the game's attempt to modify the WAITCNT register during min
 
 ## 🔧 Technical Details
 
-- The game tries to write to WAITCNT after starting a mini-game and stores only the partial address of WAITCNT in IWRAM (the first byte `04`).
-- It reconstructs the full WAITCNT address (`0x04000204`) at runtime via logic on values in IWRAM.
+- The game tries to write to WAITCNT when starting a mini game. Patching it should be easy but the data of the mini game on rom is compressed using LZSS method so it was not easy to find normally.
+- It reconstructs the full WAITCNT address (`0x04000204`) at runtime via decompression.
 - The IPS patch changes `AB` to `00` in the relevant ROM block, so the final constructed address is invalid or read-only, making the attempted write a no-op.
 
 ---
