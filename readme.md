@@ -6,7 +6,7 @@ This patch disables the game's attempt to modify the WAITCNT register during min
 
 ## ✨ Summary
 
-- **Game**: Mario Party Advance (USA)
+- **Game**: Mario Party Advance USA and Europe version 
 - **Issue**: During mini-game transitions, the game writes to `WAITCNT` (0x04000204), which can cause issues on flashcarts like SuperCard.
 - **Cause**: The game performs a `SWI 0x11` (CpuSet) to copy data from ROM to RAM. In that copied data is the value `04 AB 14`, which is then dynamically manipulated to construct the address `0x04000204`.
 - **Fix**: Patch the ROM using the provided IPS patch to modify the `AB` byte, preventing the game from forming the correct address and safely avoiding the WAITCNT write.
